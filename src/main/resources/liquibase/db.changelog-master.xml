@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="create basic tables" author="pavel">
+        <createTable tableName="issue">
+            <column name="id" type="BIGINT(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(1024)"/>
+            <column name="description" type="varchar(2048)"/>
+            <column name="implementationdays" type="int"/>
+            <column name="type" type="varchar(64)"/>
+            <column name="created" type="datetime"/>
+            <column name="started" type="datetime"/>
+            <column name="finished" type="datetime"/>
+        </createTable>
+        <createTable tableName="commit">
+            <column name="id" type="BIGINT(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="message" type="varchar(8192)"/>
+            <column name="author" type="varchar(64)"/>
+            <column name="date" type="datetime"/>
+            <column name="issueId" type="bigint"/>
+        </createTable>
+        <createTable tableName="file">
+            <column name="id" type="BIGINT(20)" autoIncrement="true">
+                <constraints primaryKey="true"   nullable="false"/>
+            </column>
+            <column name="name" type="varchar(1024)"/>
+            <column name="type" type="varchar(64)"/>
+            <column name="changetype" type="varchar(64)"/>
+            <column name="size" type="int"/>
+            <column name="commitId" type="bigint"/>
+        </createTable>
+        <createTable tableName="parameter">
+            <column name="id" autoIncrement="true" type="BIGINT(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(1024)"/>
+            <column name="type" type="varchar(64)"/>
+        </createTable>
+        <createTable tableName="parametervalue">
+            <column name="id" autoIncrement="true" type="BIGINT(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="value" type="varchar(1024)"/>
+            <column name="entityId" type="bigint"/>
+            <column name="parameterId" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
