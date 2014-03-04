@@ -1,5 +1,6 @@
-package com.codepredict.dalet;
+package com.codepredict.runners;
 
+import com.codepredict.dalet.*;
 import com.codepredict.dao.ICommitRepository;
 import com.codepredict.dao.IIssueRepository;
 import com.codepredict.entities.Commit;
@@ -16,7 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class ConvertToGeneric {
+public class ConvertDaletToGeneric {
     public static final String ISSUE_NUMBER_PATTERN = "#\\d+";
 
     public static void main(String[] args) {

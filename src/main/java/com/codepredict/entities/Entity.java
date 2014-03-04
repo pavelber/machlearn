@@ -7,7 +7,9 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @MappedSuperclass
 @Inheritance
@@ -18,13 +20,23 @@ public abstract class Entity extends ProvidedLongIdEntity {
     @Fetch(FetchMode.SELECT)
     @Cascade({CascadeType.ALL})
     private List<ParameterValue> values = new ArrayList<>();
+
+    @Transient
+    private Map<String,ParameterValue> paramName2Value = new HashMap<>();
+
     protected Entity(){}
     public Entity(Long id) {
         super(id);
     }
 
-    public void addParameterValue(ParameterValue pv){
+    public synchronized void  addParameterValue(ParameterValue pv){
+        String name = pv.getParameter().getName();
+        ParameterValue old = paramName2Value.get(name);
+        if (old!=null) {
+            values.remove(old);
+        }
         values.add(pv);
+        paramName2Value.put(name,pv);
     }
 
 

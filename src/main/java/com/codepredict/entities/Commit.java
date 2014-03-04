@@ -24,6 +24,10 @@ public class Commit extends Entity {
     private List<File> files = new ArrayList<>();
     private String message;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "issueId")
+    private Issue issue;
+
     protected Commit(){}
 
     public Commit(Long id) {
@@ -72,5 +76,9 @@ public class Commit extends Entity {
 
     public void addFile(File file) {
         files.add(file);
+    }
+
+    public Issue getIssue() {
+        return issue;
     }
 }

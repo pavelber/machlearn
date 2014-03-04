@@ -1,6 +1,7 @@
 package com.codepredict;
 
 import com.codepredict.dalet.IDaletIssueRepository;
+import com.codepredict.dao.ICommitRepository;
 import com.codepredict.dao.IIssueRepository;
 import com.codepredict.entities.*;
 import org.springframework.context.ApplicationContext;
@@ -13,6 +14,7 @@ public class SandBoxEntitySave {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
         IIssueRepository issuesRepo = context.getBean(IIssueRepository.class);
+        ICommitRepository commitsRepo = context.getBean(ICommitRepository.class);
         try {
             issuesRepo.delete(0L);
         } catch (Exception e) {
@@ -31,6 +33,9 @@ public class SandBoxEntitySave {
         issue1.addParameterValue(new ParameterValue(new Parameter(ParameterType.Enum,"num"),"1"));
         commit.addFile(new File("/tmp",0,"dir","A"));
         issuesRepo.save(issue1);
+
+        Commit c =  commitsRepo.findOne(1L);
+        System.out.println(c.getIssue());
 
     }
 }
