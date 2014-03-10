@@ -48,4 +48,8 @@ public class ParameterValue extends GeneratedLongIdEntity {
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
+
+    public String getValue() {
+        return value;
+    }
 }

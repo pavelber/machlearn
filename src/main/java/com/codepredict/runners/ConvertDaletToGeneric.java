@@ -3,19 +3,15 @@ package com.codepredict.runners;
 import com.codepredict.dalet.*;
 import com.codepredict.dao.ICommitRepository;
 import com.codepredict.dao.IIssueRepository;
-import com.codepredict.entities.Commit;
-import com.codepredict.entities.File;
-import com.codepredict.entities.Issue;
+import com.codepredict.entities.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class ConvertDaletToGeneric {
     public static final String ISSUE_NUMBER_PATTERN = "#\\d+";
@@ -28,28 +24,34 @@ public class ConvertDaletToGeneric {
         IIssueRepository issuesRepo = context.getBean(IIssueRepository.class);
         ICommitRepository commitsRepo = context.getBean(ICommitRepository.class);
 
+        Parameter team = new Parameter(ParameterType.Enum, "team");
+        Parameter branch = new Parameter(ParameterType.Enum, "branch");
+        Parameter numOfFiles = new Parameter(ParameterType.Double, "num of files");
+
 
         List<DaletIssue> daletIssues = daletIssueRepository.findAll();
-        Map<Long,Issue> refid2issue = new HashMap<>();
-        Map<Long,Commit> rev2commit = new HashMap<>();
-        for(DaletIssue di:daletIssues){
+        Map<Long, Issue> refid2issue = new HashMap<>();
+        Map<Long, Commit> rev2commit = new HashMap<>();
+        for (DaletIssue di : daletIssues) {
             String reference = di.getReference();
             Issue issue = refid2issue.get(reference);
-            if (issue==null) {
-                issue = new Issue(getId(reference),di.getType(),di.getReference());
-                refid2issue.put(issue.getId(),issue);
+            if (issue == null) {
+                issue = new Issue(getId(reference), di.getType(), di.getReference());
+                refid2issue.put(issue.getId(), issue);
             }
             Commit commit = new Commit(di.getRevision());
-            rev2commit.put(commit.getId(),commit);
+            rev2commit.put(commit.getId(), commit);
             issue.addCommit(commit);
         }
 
         List<DaletCommit> daletCommits = daletCommitRepository.findAll();
-        for(DaletCommit dc:daletCommits){
+        for (DaletCommit dc : daletCommits) {
             Commit commit = rev2commit.get(dc.getRevision());
-            if (commit==null) {
+            if (commit == null) {
                 commit = new Commit(dc.getRevision());
-                rev2commit.put(commit.getId(),commit);
+                commit.addParameterValue(new ParameterValue(team, dc.getTeam()));
+                commit.addParameterValue(new ParameterValue(numOfFiles, dc.getChangedfilescount().toString()));
+                rev2commit.put(commit.getId(), commit);
                 commitsRepo.save(commit);
             }
             commit.setAuthor(dc.getAuthor());
@@ -57,20 +59,34 @@ public class ConvertDaletToGeneric {
             commit.setMessage(dc.getMessage());
         }
 
-        List<DaletFile> daletFiles  = daletFileRepository.findAll();
-        for(DaletFile df:daletFiles){
-            File file =  new File(df.getFile(),0,df.getKind(), df.getType());
+        List<DaletFile> daletFiles = daletFileRepository.findAll();
+        for (DaletFile df : daletFiles) {
+            File file = new File(df.getFile(), 0, df.getKind(), df.getType());
             Commit commit = rev2commit.get(df.getRevision());
-            if (commit==null) {
+            if (commit == null) {
                 commit = new Commit(df.getRevision());
-                rev2commit.put(commit.getId(),commit);
+                rev2commit.put(commit.getId(), commit);
                 commit.addFile(file);
+                String branchName = commit.getParameterValue(branch);
+                String fileBranch = extractBranch(file.getName());
+                if (branchName == null) {
+                    commit.addParameterValue(new ParameterValue(branch, fileBranch));
+                }  else {
+                    if (!branchName.equals(fileBranch)) {
+                        throw new RuntimeException("Different branches for commit "+commit.getId());
+                    }
+                }
                 commitsRepo.save(commit);
             }
             commit.addFile(file);
         }
 
         issuesRepo.save(refid2issue.values());
+    }
+
+    private static String extractBranch(String name) {
+        String parts[] = name.split("/");
+        return "/"+parts[0]+"/"+parts[1]+"/"+parts[2];
     }
 
     private static Long getId(String s) {

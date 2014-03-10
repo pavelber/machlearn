@@ -40,5 +40,7 @@ public abstract class Entity extends ProvidedLongIdEntity {
     }
 
 
-
+    public String getParameterValue(Parameter p) {
+        return paramName2Value.get(p.getName()).getValue();
+    }
 }
