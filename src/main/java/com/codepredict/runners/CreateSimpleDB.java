@@ -2,6 +2,7 @@ package com.codepredict.runners;
 
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
+import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.codepredict.dao.ICommitRepository;
 import com.codepredict.dao.IFileRepository;
 import com.codepredict.dao.IIssueRepository;
@@ -24,7 +25,7 @@ public class CreateSimpleDB {
 
         IssueRestClient irc;
 
-        JiraRestClientFactory jrf = AsynchronousJiraRestClientFactory();
+        JiraRestClientFactory jrf = new AsynchronousJiraRestClientFactory();
 
 
         Random rg = new Random();
