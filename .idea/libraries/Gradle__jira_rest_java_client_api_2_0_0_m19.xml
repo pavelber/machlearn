@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: jira-rest-java-client-api-2.0.0-m19">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atlassian.jira/jira-rest-java-client-api/2.0.0-m19/6774cbae5c8a42e921b9bfb55c1609fae19303bf/jira-rest-java-client-api-2.0.0-m19.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atlassian.jira/jira-rest-java-client-api/2.0.0-m19/9d4f72877fa1d18ad536efd55842d2d60d1af00e/jira-rest-java-client-api-2.0.0-m19-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

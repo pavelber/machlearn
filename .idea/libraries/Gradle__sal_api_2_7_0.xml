@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: sal-api-2.7.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atlassian.sal/sal-api/2.7.0/b0d49ec14b5c823c24821bfbc8cd618525390a1b/sal-api-2.7.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atlassian.sal/sal-api/2.7.0/f0e64fb76d2e3b50e036209bfa66f6fba1fb532/sal-api-2.7.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

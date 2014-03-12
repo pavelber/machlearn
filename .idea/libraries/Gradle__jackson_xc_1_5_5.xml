@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: jackson-xc-1.5.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-xc/1.5.5/58811cfa31b5355d0146aae33b3fc3fee661d5bc/jackson-xc-1.5.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-xc/1.5.5/8b2d8e8655e4fae80b4964421a6d419671ed076a/jackson-xc-1.5.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

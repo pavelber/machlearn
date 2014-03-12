@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: atlassian-httpclient-api-0.13.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atlassian.httpclient/atlassian-httpclient-api/0.13.2/1d375dbeb33159b72fb85ff992c078712d7ebb92/atlassian-httpclient-api-0.13.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atlassian.httpclient/atlassian-httpclient-api/0.13.2/288fa0e92e8f20b3b52866f67b7f7e557eba6aeb/atlassian-httpclient-api-0.13.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

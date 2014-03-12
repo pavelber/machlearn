@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: httpasyncclient-4.0-beta3-atlassian-1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpasyncclient/4.0-beta3-atlassian-1/41e5d5cf3956de717f970231f6cfb58f2c5db755/httpasyncclient-4.0-beta3-atlassian-1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpasyncclient/4.0-beta3-atlassian-1/460332fc0b20849594622248371504a5a571e53e/httpasyncclient-4.0-beta3-atlassian-1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

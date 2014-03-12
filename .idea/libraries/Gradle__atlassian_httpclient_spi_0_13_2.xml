@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: atlassian-httpclient-spi-0.13.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atlassian.httpclient/atlassian-httpclient-spi/0.13.2/794e003b42392501c24ea5b7d78a3a1c405dc2a/atlassian-httpclient-spi-0.13.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atlassian.httpclient/atlassian-httpclient-spi/0.13.2/af42fa23b5b2a4edfc18c4f207051a7e9d9e496f/atlassian-httpclient-spi-0.13.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
