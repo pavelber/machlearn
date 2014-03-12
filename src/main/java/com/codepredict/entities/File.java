@@ -26,6 +26,13 @@ public class File extends GeneratedLongIdEntity {
         this.changeType = ChangeType.valueOf(changetype);
     }
 
+    public File(String name, Integer size, FileType filetype, ChangeType changetype) {
+        this.name = name;
+        this.size = size;
+        this.type = filetype;
+        this.changeType = changetype;
+    }
+
     public String getName() {
         return name;
     }
