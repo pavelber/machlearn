@@ -1,7 +1,6 @@
 package com.codepredict.runners;
 
 import com.atlassian.jira.rest.client.api.IssueRestClient;
-import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
 import com.codepredict.dao.ICommitRepository;
 import com.codepredict.dao.IFileRepository;
 import com.codepredict.dao.IIssueRepository;
@@ -12,7 +11,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
 import java.util.Random;
-// import com.atlassian.jira.rest.client.internal.Jersey;
 
 
 /**
@@ -24,8 +22,7 @@ public class CreateSimpleDB {
 
         IssueRestClient irc;
 
-        JiraRestClientFactory jrf = AsynchronousJiraRestClientFactory();
-
+        JerseyJiraRestClientFactory jrf = new JerseyJiraRestClientFactory();
 
         Random rg = new Random();
         ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
