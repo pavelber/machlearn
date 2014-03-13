@@ -29,7 +29,10 @@ public class ConvertDaletToGeneric {
         Parameter numOfFiles = new Parameter(ParameterType.Double, "num of files");
 
 
+        System.out.println("Loading dalet issues");
         List<DaletIssue> daletIssues = daletIssueRepository.findAll();
+        System.out.println("END OF Loading dalet issues");
+
         Map<Long, Issue> refid2issue = new HashMap<>();
         Map<Long, Commit> rev2commit = new HashMap<>();
         for (DaletIssue di : daletIssues) {
@@ -44,7 +47,10 @@ public class ConvertDaletToGeneric {
             issue.addCommit(commit);
         }
 
+        System.out.println("Loading dalet commits");
         List<DaletCommit> daletCommits = daletCommitRepository.findAll();
+        System.out.println("END OF Loading dalet commits");
+
         for (DaletCommit dc : daletCommits) {
             Commit commit = rev2commit.get(dc.getRevision());
             if (commit == null) {
@@ -52,14 +58,16 @@ public class ConvertDaletToGeneric {
                 commit.addParameterValue(new ParameterValue(team, dc.getTeam()));
                 commit.addParameterValue(new ParameterValue(numOfFiles, dc.getChangedfilescount().toString()));
                 rev2commit.put(commit.getId(), commit);
-                commitsRepo.save(commit);
+        //        commitsRepo.save(commit);
             }
             commit.setAuthor(dc.getAuthor());
             commit.setDate(dc.getDate());
             commit.setMessage(dc.getMessage());
         }
-
+        System.out.println("Loading dalet files");
         List<DaletFile> daletFiles = daletFileRepository.findAll();
+        System.out.println("End of Loading dalet files");
+
         for (DaletFile df : daletFiles) {
             File file = new File(df.getFile(), 0, df.getKind(), df.getType());
             Commit commit = rev2commit.get(df.getRevision());
@@ -76,12 +84,17 @@ public class ConvertDaletToGeneric {
                         throw new RuntimeException("Different branches for commit "+commit.getId());
                     }
                 }
-                commitsRepo.save(commit);
+                //commitsRepo.save(commit);
             }
             commit.addFile(file);
         }
 
+        System.out.println("END OF PROCESSING "+rev2commit.size()+" commits "+refid2issue.size()+" issues");
+
         issuesRepo.save(refid2issue.values());
+        commitsRepo.save(rev2commit.values());
+
+        System.exit(0);
     }
 
     private static String extractBranch(String name) {
