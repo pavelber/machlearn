@@ -1,6 +1,10 @@
 package com.codepredict.runners;
 
-import com.atlassian.jira.rest.client.api.IssueRestClient;
+import com.atlassian.jira.rest.client.api.JiraRestClient;
+import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
+import com.atlassian.jira.rest.client.api.SearchRestClient;
+import com.atlassian.jira.rest.client.api.domain.SearchResult;
+import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.codepredict.dao.ICommitRepository;
 import com.codepredict.dao.IFileRepository;
 import com.codepredict.dao.IIssueRepository;
@@ -9,6 +13,8 @@ import com.codepredict.entities.File;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.Random;
 
@@ -20,9 +26,24 @@ public class CreateSimpleDB {
     public static void main(String[] args) {
         System.out.println("Starting ...");
 
-        IssueRestClient irc;
+        JiraRestClientFactory jrf = new AsynchronousJiraRestClientFactory();
 
-        JerseyJiraRestClientFactory jrf = new JerseyJiraRestClientFactory();
+        URI jUri = null;
+        try {
+            jUri = new URI("http://www.jahoo.com");
+        } catch (URISyntaxException e) {
+            System.out.println("URI Syntax Error: " + e.getMessage());
+        }
+
+        String user_name = "the_user", password = "the_password";
+        JiraRestClient restClient = jrf.createWithBasicHttpAuthentication(jUri, user_name, password);
+        String jql_request = "?????";
+        SearchRestClient src = restClient.getSearchClient();
+        SearchResult sri = src.searchJql(jql_request).claim();
+
+        //IssueRestClient irc = restClient.getIssueClient();
+        //Issue issue = irc.getIssue(jql_request).claim();
+
 
         Random rg = new Random();
         ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
