@@ -44,4 +44,8 @@ public abstract class Entity extends ProvidedLongIdEntity {
         ParameterValue parameterValue = paramName2Value.get(p.getName());
         return parameterValue==null?null:parameterValue.getValue();
     }
+
+    public  List<ParameterValue> getParameterValues() {
+        return values;
+    }
 }
