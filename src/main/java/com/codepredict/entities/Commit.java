@@ -26,7 +26,7 @@ public class Commit extends Entity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "issueId")
-    private Issue issue;
+    private CodePredIssue codePredIssue;
 
     protected Commit(){}
 
@@ -78,7 +78,7 @@ public class Commit extends Entity {
         files.add(file);
     }
 
-    public Issue getIssue() {
-        return issue;
+    public CodePredIssue getIssue() {
+        return codePredIssue;
     }
 }

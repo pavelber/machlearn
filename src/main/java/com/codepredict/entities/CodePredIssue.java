@@ -11,7 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 @javax.persistence.Entity
-public class Issue extends Entity {
+@Table(schema = "issue")
+public class CodePredIssue extends Entity {
 
     @Enumerated(EnumType.STRING)
     private String type;
@@ -33,10 +34,10 @@ public class Issue extends Entity {
 
     private int implementationDays;
 
-    private Issue() {
+    private CodePredIssue() {
     }
 
-    public Issue(Long id, String type, String reference) {
+    public CodePredIssue(Long id, String type, String reference) {
         super(id);
         this.type = type;
         this.title = reference;

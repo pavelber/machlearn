@@ -1,6 +1,5 @@
 package com.codepredict;
 
-import com.codepredict.dalet.IDaletIssueRepository;
 import com.codepredict.dao.ICommitRepository;
 import com.codepredict.dao.IIssueRepository;
 import com.codepredict.entities.*;
@@ -25,16 +24,16 @@ public class SandBoxEntitySave {
         } catch (Exception e) {
 
         }
-        Issue issue = new Issue(0L,"feature","tatata");
+        CodePredIssue issue = new CodePredIssue(0L, "feature", "tatata");
         issuesRepo.save(issue);
-        Issue issue1 = new Issue(1L,"featuqwere","taqwetata");
+        CodePredIssue issue1 = new CodePredIssue(1L, "featuqwere", "taqwetata");
         Commit commit = new Commit(1L, new Date(), "Pavel", "fix #6");
         issue1.setCommits(Arrays.asList(commit));
-        issue1.addParameterValue(new ParameterValue(new Parameter(ParameterType.Enum,"num"),"1"));
-        commit.addFile(new File("/tmp",0,"dir","A"));
+        issue1.addParameterValue(new ParameterValue(new Parameter(ParameterType.Enum, "num"), "1"));
+        commit.addFile(new File("/tmp", 0, "dir", "A"));
         issuesRepo.save(issue1);
 
-        Commit c =  commitsRepo.findOne(1L);
+        Commit c = commitsRepo.findOne(1L);
         System.out.println(c.getIssue());
 
     }

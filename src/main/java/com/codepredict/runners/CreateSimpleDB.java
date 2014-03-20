@@ -1,16 +1,16 @@
 package com.codepredict.runners;
 
-import com.atlassian.httpclient.apache.httpcomponents.DefaultHttpClient;
-import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.api.SearchRestClient;
+import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
 import com.atlassian.jira.rest.client.auth.AnonymousAuthenticationHandler;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.codepredict.dao.ICommitRepository;
 import com.codepredict.dao.IFileRepository;
 import com.codepredict.dao.IIssueRepository;
+import com.codepredict.entities.CodePredIssue;
 import com.codepredict.entities.Commit;
 import com.codepredict.entities.File;
 import org.springframework.context.ApplicationContext;
@@ -36,15 +36,34 @@ public class CreateSimpleDB {
         //JiraRestClient restClient = jrf.createWithBasicHttpAuthentication(jUri, user_name, password);
         JiraRestClient restClient = jrf.create(jUri, new AnonymousAuthenticationHandler());
         String jql_request = "project=DATAJPA";
+
         SearchRestClient src = restClient.getSearchClient();
-        SearchResult sri = src.searchJql(jql_request).claim();
+        SearchResult sri = src.searchJql(jql_request, 1000, 0, null).claim();
 
         System.out.println("Retrieved  " +sri.getTotal());
+        // System.out.println("Search Result: " + sri.toString());
+        Integer j = 0;
+        for (Issue result : sri.getIssues()) {
+            // System.out.println("Issues: " + result.getId().toString());
+            j = j + 1;
+            System.out.println("CodePredIssue id: " +
+                    result.getId().toString() + "  " +
+                    result.getStatus().getName() + "  " +
+                    result.getCreationDate().toString().substring(0, 10) + "  " +
+                    // result.getCreationDate().toDateTime().f
+                    result.getAssignee().getName() + "  " +  // olivergierke
+                    result.getAssignee().getDisplayName()     // Oliver Gierke
+            );
+        }
 
+        System.out.println("Got issues:  " + j.toString());
 
         //IssueRestClient irc = restClient.getIssueClient();
-        //Issue issue = irc.getIssue(jql_request).claim();
+        //CodePredIssue issue = irc.getIssue(jql_request).claim();
 
+        // com.codepredict.entities.CodePredIssue is;
+
+        CodePredIssue the_issue;
 
         Random rg = new Random();
         ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");

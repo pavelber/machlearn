@@ -33,13 +33,13 @@ public class ConvertDaletToGeneric {
         List<DaletIssue> daletIssues = daletIssueRepository.findAll();
         System.out.println("END OF Loading dalet issues");
 
-        Map<Long, Issue> refid2issue = new HashMap<>();
+        Map<Long, CodePredIssue> refid2issue = new HashMap<>();
         Map<Long, Commit> rev2commit = new HashMap<>();
         for (DaletIssue di : daletIssues) {
             String reference = di.getReference();
-            Issue issue = refid2issue.get(reference);
+            CodePredIssue issue = refid2issue.get(reference);
             if (issue == null) {
-                issue = new Issue(getId(reference), di.getType(), di.getReference());
+                issue = new CodePredIssue(getId(reference), di.getType(), di.getReference());
                 refid2issue.put(issue.getId(), issue);
             }
             Commit commit = new Commit(di.getRevision());
@@ -58,7 +58,7 @@ public class ConvertDaletToGeneric {
                 commit.addParameterValue(new ParameterValue(team, dc.getTeam()));
                 commit.addParameterValue(new ParameterValue(numOfFiles, dc.getChangedfilescount().toString()));
                 rev2commit.put(commit.getId(), commit);
-        //        commitsRepo.save(commit);
+                //        commitsRepo.save(commit);
             }
             commit.setAuthor(dc.getAuthor());
             commit.setDate(dc.getDate());
@@ -79,9 +79,9 @@ public class ConvertDaletToGeneric {
                 String fileBranch = extractBranch(file.getName());
                 if (branchName == null) {
                     commit.addParameterValue(new ParameterValue(branch, fileBranch));
-                }  else {
+                } else {
                     if (!branchName.equals(fileBranch)) {
-                        throw new RuntimeException("Different branches for commit "+commit.getId());
+                        throw new RuntimeException("Different branches for commit " + commit.getId());
                     }
                 }
                 //commitsRepo.save(commit);
@@ -89,7 +89,7 @@ public class ConvertDaletToGeneric {
             commit.addFile(file);
         }
 
-        System.out.println("END OF PROCESSING "+rev2commit.size()+" commits "+refid2issue.size()+" issues");
+        System.out.println("END OF PROCESSING " + rev2commit.size() + " commits " + refid2issue.size() + " issues");
 
         issuesRepo.save(refid2issue.values());
         commitsRepo.save(rev2commit.values());
@@ -99,7 +99,7 @@ public class ConvertDaletToGeneric {
 
     private static String extractBranch(String name) {
         String parts[] = name.split("/");
-        return "/"+parts[0]+"/"+parts[1]+"/"+parts[2];
+        return "/" + parts[0] + "/" + parts[1] + "/" + parts[2];
     }
 
     private static Long getId(String s) {

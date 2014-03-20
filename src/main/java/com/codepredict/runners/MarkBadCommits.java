@@ -30,7 +30,7 @@ public class MarkBadCommits {
             List<Commit> commits = p.getContent();
             for (Commit c : commits) {
                 List<File> files = c.getFiles();
-                Issue issue = c.getIssue();
+                CodePredIssue issue = c.getIssue();
                 boolean fix = issue == null ? false : issue.getType().equals("B");
                 for (File f : files) {
 
