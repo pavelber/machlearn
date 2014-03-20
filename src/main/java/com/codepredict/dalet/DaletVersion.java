@@ -5,8 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity()
-@Table(name = "VERSIONS")
-public class Version  extends RevisionIdEntity  {
+@Table(name = "VERSION")
+public class DaletVersion extends RevisionIdEntity  {
     private String product;
     private String type;
     private String branch;

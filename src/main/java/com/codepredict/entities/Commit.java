@@ -28,6 +28,8 @@ public class Commit extends Entity {
     @JoinColumn(name = "issueId")
     private CodePredIssue codePredIssue;
 
+    private String branch;
+
     protected Commit(){}
 
     public Commit(Long id) {
@@ -80,5 +82,9 @@ public class Commit extends Entity {
 
     public CodePredIssue getIssue() {
         return codePredIssue;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 }

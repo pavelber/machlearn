@@ -16,13 +16,17 @@ import java.util.List;
 public class CommitInstancesCreator implements IWekaInstancesCreator {
 
     @Autowired
-    private ICommitRepository commitsRepo;
+    protected ICommitRepository commitsRepo;
 
     @Override
     public Instances getInstances() {
-        List<Commit> all = commitsRepo.findAll();
+        List<Commit> all = getCommits();
         IEntitiesAccessor accessor = new EntitiesAccessor(all);
         WekaInstancesCreator creator = new WekaInstancesCreator(accessor);
         return creator.getInstances();
+    }
+
+    protected List<Commit> getCommits() {
+        return commitsRepo.findAll();
     }
 }
