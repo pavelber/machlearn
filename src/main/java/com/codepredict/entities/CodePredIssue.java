@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @javax.persistence.Entity
-@Table(schema = "issue")
+@Table(name = "issue")
 public class CodePredIssue extends Entity {
 
     @Enumerated(EnumType.STRING)
