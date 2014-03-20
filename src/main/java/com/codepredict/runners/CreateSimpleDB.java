@@ -3,6 +3,7 @@ package com.codepredict.runners;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.api.SearchRestClient;
+import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
 import com.atlassian.jira.rest.client.auth.AnonymousAuthenticationHandler;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
@@ -42,8 +43,8 @@ public class CreateSimpleDB {
         System.out.println("Retrieved  " +sri.getTotal());
         // System.out.println("Search Result: " + sri.toString());
         Integer j = 0;
-        /**
-         for (Issue result : sri.getIssues()) {
+
+        for (Issue result : sri.getIssues()) {
             // System.out.println("Issues: " + result.getId().toString());
             j = j + 1;
             System.out.println("CodePredIssue id: " +
@@ -55,7 +56,7 @@ public class CreateSimpleDB {
                     result.getAssignee().getDisplayName()     // Oliver Gierke
             );
         }
-         **/
+
         System.out.println("Got issues:  " + j.toString());
 
         //IssueRestClient irc = restClient.getIssueClient();
