@@ -53,5 +53,10 @@
             <column name="parameterId" type="bigint"/>
         </createTable>
     </changeSet>
+    <changeSet id="add branch column" author="Pavel">
+        <addColumn tableName="commit">
+            <column name="branch" type="varchar(128)"/>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

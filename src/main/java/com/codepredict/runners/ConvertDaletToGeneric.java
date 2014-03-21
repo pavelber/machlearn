@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class ConvertDaletToGeneric {
     public static final String ISSUE_NUMBER_PATTERN = "#\\d+";
@@ -23,6 +24,11 @@ public class ConvertDaletToGeneric {
         IDaletFileRepository daletFileRepository = context.getBean(IDaletFileRepository.class);
         IIssueRepository issuesRepo = context.getBean(IIssueRepository.class);
         ICommitRepository commitsRepo = context.getBean(ICommitRepository.class);
+        IDaletVersionRepository daletVersionRepository = context.getBean(IDaletVersionRepository.class);
+
+        Map<Long, String> commitId2Branch = daletVersionRepository.findAll().stream().collect(Collectors.toMap(
+                DaletVersion::getRevision,
+                dv -> dv.getBranch() + "/"+dv.getProductversion()));
 
         Parameter team = new Parameter(ParameterType.Enum, "team");
         Parameter branch = new Parameter(ParameterType.Enum, "branch");
@@ -63,6 +69,8 @@ public class ConvertDaletToGeneric {
             commit.setAuthor(dc.getAuthor());
             commit.setDate(dc.getDate());
             commit.setMessage(dc.getMessage());
+            commit.setBranch(commitId2Branch.get(commit.getId()));
+
         }
         System.out.println("Loading dalet files");
         List<DaletFile> daletFiles = daletFileRepository.findAll();
