@@ -46,5 +46,6 @@ public class RunClusteringOnCommit {
         eval.setClusterer(clusterer);                                   // the cluster to evaluate
         eval.evaluateClusterer(dataset);                                // data to evaluate the clusterer on
         System.out.println("# of clusters: " + eval.getNumClusters());  // output # of clusters
+        System.out.println( eval.clusterResultsToString());
     }
 }

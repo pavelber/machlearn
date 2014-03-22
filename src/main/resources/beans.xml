@@ -70,4 +70,12 @@
         <property name="contexts" value="production" />
     </bean>
 
+    <bean id="enrichersPipeline" class="com.codepredict.enrichers.EnrichersPipeline">
+        <constructor-arg>
+            <list>
+                <ref bean="filesEnricher"/>
+                <ref bean="s2EEnricher"/>
+            </list>
+        </constructor-arg>
+    </bean>
 </beans>
