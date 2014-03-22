@@ -17,7 +17,7 @@ public abstract class Entity extends ProvidedLongIdEntity {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "entityid", referencedColumnName = "id")
-    @Fetch(FetchMode.SELECT)
+    @Fetch(FetchMode.SUBSELECT)
     @Cascade({CascadeType.ALL})
     private List<ParameterValue> values = new ArrayList<>();
 

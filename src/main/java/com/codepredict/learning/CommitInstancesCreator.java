@@ -21,6 +21,7 @@ public class CommitInstancesCreator implements IWekaInstancesCreator {
     @Override
     public Instances getInstances() {
         List<Commit> all = getCommits();
+        System.out.println("Commits loaded:"+all.size());
         IEntitiesAccessor accessor = new EntitiesAccessor(all);
         WekaInstancesCreator creator = new WekaInstancesCreator(accessor);
         return creator.getInstances();

@@ -91,6 +91,7 @@ public class WekaInstancesCreator implements IWekaInstancesCreator {
                         break;
                     case Double:
                         attValues[index] = Double.valueOf(value);
+                        break;
                     default:
                         throw new RuntimeException("Unknown attr type");
 

@@ -1,5 +1,6 @@
 package com.codepredict.runners;
 
+import com.codepredict.learning.BranchCommitInstancesCreator;
 import com.codepredict.learning.CommitInstancesCreator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,7 +16,7 @@ import java.io.File;
 public class RunClusteringOnCommit {
     public static void main(String[] args) throws Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-        CommitInstancesCreator creator = context.getBean(CommitInstancesCreator.class);
+        CommitInstancesCreator creator = context.getBean(BranchCommitInstancesCreator.class);
         Instances dataset = creator.getInstances();
         //4.output dataset
         System.out.println(dataset);
