@@ -36,7 +36,7 @@ public class S2EEnricher extends BaseEnricher {
                 if (parameter.getType() == ParameterType.String) {
                     String name = parameter.getName();
                     if (param2Value.get(name).size()> MAX_VALUES_FOR_ENUM){
-                        c.addParameterValue(enumParam(name, pv.getValue()));
+                        c.addParameterValue(enumParam(name+"-S2E", pv.getValue()));
                     }
                 }
             });

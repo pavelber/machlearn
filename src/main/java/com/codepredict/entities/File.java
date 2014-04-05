@@ -36,4 +36,16 @@ public class File extends GeneratedLongIdEntity {
     public String getName() {
         return name;
     }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public FileType getType() {
+        return type;
+    }
+
+    public ChangeType getChangeType() {
+        return changeType;
+    }
 }
