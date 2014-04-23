@@ -19,9 +19,10 @@ public class Commit extends Entity {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "commitId", referencedColumnName = "id")
-    @Fetch(FetchMode.SELECT)
     @Cascade({CascadeType.ALL})
+    @Fetch(FetchMode.SUBSELECT)
     private List<File> files = new ArrayList<>();
+
     private String message;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -21,7 +21,7 @@ public class CodePredIssue extends Entity {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "issueId", referencedColumnName = "id")
-    @Fetch(FetchMode.SELECT)
+    @Fetch(FetchMode.SUBSELECT)
     @Cascade({CascadeType.ALL})
     private List<Commit> commits = new ArrayList<>();
 

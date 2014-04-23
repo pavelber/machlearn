@@ -17,35 +17,52 @@ public abstract class Entity extends ProvidedLongIdEntity {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "entityid", referencedColumnName = "id")
-    @Fetch(FetchMode.SELECT)
+    @Fetch(FetchMode.SUBSELECT)
     @Cascade({CascadeType.ALL})
     private List<ParameterValue> values = new ArrayList<>();
 
     @Transient
-    private Map<String,ParameterValue> paramName2Value = new HashMap<>();
+    private Map<String, ParameterValue> paramName2Value;
 
-    protected Entity(){}
+    protected Entity() {
+    }
+
     public Entity(Long id) {
         super(id);
     }
 
-    public synchronized void  addParameterValue(ParameterValue pv){
+    public void addParameterValue(ParameterValue pv) {
+        createaMap();
         String name = pv.getParameter().getName();
         ParameterValue old = paramName2Value.get(name);
-        if (old!=null) {
+        if (old != null) {
+            if (old.getParameter().getType() != pv.getParameter().getType()) {
+                throw new RuntimeException("Different type, the same name:" + name);
+            }
             values.remove(old);
         }
         values.add(pv);
-        paramName2Value.put(name,pv);
+        paramName2Value.put(name, pv);
     }
 
 
     public String getParameterValue(Parameter p) {
+        createaMap();
         ParameterValue parameterValue = paramName2Value.get(p.getName());
-        return parameterValue==null?null:parameterValue.getValue();
+        return parameterValue == null ? null : parameterValue.getValue();
     }
 
-    public  List<ParameterValue> getParameterValues() {
-        return values;
+    private void createaMap() {
+        if (paramName2Value == null) {
+            paramName2Value = new HashMap<>();
+            values.forEach(v -> {
+                if (v.getParameter().getType() == ParameterType.Enum)
+                    paramName2Value.put(v.getParameter().getName(), v);
+            });
+        }
+    }
+
+    public List<ParameterValue> getParameterValues() {
+        return new ArrayList(paramName2Value.values());
     }
 }
